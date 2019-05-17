@@ -1,0 +1,82 @@
+#include<AFMotor.h>
+AF_DCMotor motor1(1);
+AF_DCMotor motor2(2);
+
+int ByteReceived;
+int motorspeed = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Serial.println("enter 1=FORWARD ,2= BACKWARD ,3=BRAKE ,+/- = SPEED");
+
+  motor1.setSpeed(motorspeed);
+  motor2.setSpeed(motorspeed);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (Serial.available() > 0)
+  {
+    ByteReceived = Serial.read();
+    Serial.print(char(ByteReceived));
+    if (ByteReceived == '+')
+    {
+      motor1.setSpeed(motorspeed = motorspeed + 10);
+      motor2.setSpeed(motorspeed = motorspeed + 10);
+
+    }
+    if (ByteReceived == '-')
+    {
+      motor1.setSpeed(motorspeed = motorspeed - 10);
+      motor2.setSpeed(motorspeed = motorspeed - 10);
+
+    }
+    if (ByteReceived == '1') // Single Quote! This is a character.
+    {
+      motor1.run(FORWARD);
+      delay(10);
+      motor1.run(RELEASE);
+      delay(10);
+      motor1.run(FORWARD);
+      delay(10);
+      motor2.run(BACKWARD);
+      delay(10);
+      motor2.run(RELEASE);
+      delay(10);
+      motor2.run(BACKWARD);
+      delay(10);
+    }
+    if (ByteReceived == '2') // Single Quote! This is a character.
+    {
+      motor1.run(BACKWARD);
+      delay(10);
+      motor1.run(RELEASE);
+      delay(10);
+      motor1.run(BACKWARD);
+      delay(10);
+      motor2.run(FORWARD);
+      delay(10);
+      motor2.run(RELEASE);
+      delay(10);
+      motor2.run(FORWARD);
+      delay(10);
+    }
+    if (ByteReceived == '3') // Single Quote! This is a character.
+    {
+      motor1.run(BRAKE);
+      delay(10);
+      motor1.run(RELEASE);
+      delay(10);
+      motor1.run(BRAKE);
+      delay(10);
+      motor2.run(BRAKE);
+      delay(10);
+      motor2.run(RELEASE);
+      delay(10);
+      motor2.run(BRAKE);
+      delay(10);
+    }
+
+  }
+}
