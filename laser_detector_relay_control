@@ -1,0 +1,44 @@
+int ByteReceived;
+void setup() {
+  Serial.begin(9600);
+  Serial.println("enter numbers to control devices 123456");
+  pinMode(8, OUTPUT);
+  pinMode(13, OUTPUT);
+}
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (Serial.available() > 0)
+  {
+    ByteReceived = Serial.read();
+    Serial.print(char(ByteReceived));
+    if (ByteReceived == '1')
+    {
+      digitalWrite(8, HIGH);
+
+    }
+    if (ByteReceived == '2')
+    {
+      digitalWrite(8, LOW);
+
+    }
+    if (ByteReceived == '3')
+    {
+      digitalWrite(13, HIGH);
+
+    }
+    if (ByteReceived == '4')
+    {
+      digitalWrite(13, LOW);
+
+    }
+    if (ByteReceived == '5')
+    {
+      digitalWrite(12, HIGH);
+
+    }
+    if (ByteReceived == '6')
+    {
+      digitalWrite(12, LOW);
+
+    }
+  }}
